@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux'
 import axios from 'axios'
 import userSlice from '../store/user'
 import jwtDecode from 'jwt-decode'
+import { GoogleLogin } from 'react-google-login';
 
 const Login = () => {
 
@@ -44,6 +45,14 @@ const Login = () => {
         })
     }
 
+    const googleSuccessLogin = (res) => {
+        console.log(res)
+    }
+
+    const googleFailedLogin = (err) => {
+        console.log(err)
+    }
+
   return (
     <section>
             <div className="container py-8">
@@ -65,6 +74,15 @@ const Login = () => {
                         </div>
                         <p>Don't have an accout? <Link to="/register" className="text-blue-600">Register Now</Link></p>
                     </form>
+                    <GoogleLogin
+                        clientId="964050370893-6t5kfa36k505j7l2ii0mrs7kg93bqeu1.apps.googleusercontent.com"
+                        render={renderProps => (
+                            <button className='bg-green-800 w-52 py-2 rounded text-white text-md mt-2' onClick={renderProps.onClick} disabled={renderProps.disabled}>Login with Google</button>
+                        )}
+                        onSuccess={googleSuccessLogin}
+                        onFailure={googleFailedLogin}
+                        cookiePolicy={'single_host_origin'}
+                    />
                 </div>
             </div>
         </section>
